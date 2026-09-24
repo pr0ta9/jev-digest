@@ -1,0 +1,25 @@
+# Local SearXNG for jev-digest. Start with:  docker compose -f docker/docker-compose.searxng.yml up -d
+# Then set JEV_DIGEST_SEARXNG_URL=http://localhost:8089 (the default). Another host port: JEV_DIGEST_SEARXNG_PORT=8090.
+#
+# Keep the image current: the big engines block scrapers and SearXNG ships fixes often. A five-month-old image
+# returned zero results for us in September 2026 (Google workaround patched, DuckDuckGo CAPTCHA fix not yet included).
+# If results stay empty, check http://localhost:8089/stats/errors and enable other engines in searxng/settings.yml.
+services:
+  searxng:
+    image: searxng/searxng:latest
+    ports:
+      - "${JEV_DIGEST_SEARXNG_PORT:-8089}:8080"
+    volumes:
+      - ./searxng:/etc/searxng
+    environment:
+      SEARXNG_BASE_URL: http://localhost:8089/
+      # One worker with 4 threads serves at most 4 searches at once; a batch of 5 queued behind it. Size for batches.
+      GRANIAN_WORKERS: "4"
+      GRANIAN_BLOCKING_THREADS: "8"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

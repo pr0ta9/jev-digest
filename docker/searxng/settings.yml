@@ -1,0 +1,60 @@
+# Minimal SearXNG settings for jev-digest. Inherits the defaults, enables the JSON API the tool needs,
+# and turns on a few smaller engines that rarely block scrapers so one CAPTCHA does not empty the result list.
+use_default_settings: true
+
+server:
+  secret_key: "change-me-to-a-random-string"
+  limiter: false
+  image_proxy: false
+
+search:
+  autocomplete: "duckduckgo"
+  formats:
+    - html
+    - json
+  # Retry a throttled or CAPTCHA'd engine after 10 minutes instead of SearXNG's default hour/day, so a burst of
+  # benchmark queries does not empty the result list for the rest of the session.
+  suspended_times:
+    SearxEngineAccessDenied: 600
+    SearxEngineCaptcha: 600
+    SearxEngineTooManyRequests: 600
+    cf_SearxEngineCaptcha: 600
+    cf_SearxEngineAccessDenied: 600
+
+outgoing:
+  # A search returns when every engine has answered or timed out; keep the slowest engine from holding the digest.
+  request_timeout: 2.0
+  max_request_timeout: 2.5
+  pool_connections: 100
+  pool_maxsize: 50
+
+engines:
+  # Web results come only from Google, Brave, DuckDuckGo and Yandex. Every other engine that is enabled but failing
+  # holds the search until max_request_timeout (google cse was suspended and wikidata timed out on most queries).
+  # Brave is queried directly by jev_digest.search: it answers SearXNG's requests with "too many requests".
+  - name: google
+    disabled: false
+  - name: brave
+    disabled: true
+  - name: duckduckgo
+    disabled: false
+  - name: yandex
+    disabled: false
+  - name: google cse
+    disabled: true
+  - name: bing
+    disabled: true
+  - name: yahoo
+    disabled: true
+  - name: naver
+    disabled: true
+  - name: wikidata
+    disabled: true
+  - name: wikipedia
+    disabled: true
+  - name: baidu
+    disabled: true
+  - name: qwant
+    disabled: true
+  - name: seznam
+    disabled: true
