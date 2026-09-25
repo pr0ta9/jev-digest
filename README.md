@@ -10,9 +10,9 @@ jev-digest searches the web or reads local documents, then uses TypeSafe's Jev m
 
 [Quick start](#quick-start) | [Example output](#example-output) | [Tools](#tools) | [Early results](#early-results) | [Contribute](#contribute)
 
-[![Watch the jev-digest demo](assets/jev-digest-demo.jpg)](assets/jev-digest-demo.mp4)
+**Watch the 20-second demo** (1080p)
 
-**[Watch the 20-second demo](assets/jev-digest-demo.mp4)** (1080p)
+https://github.com/user-attachments/assets/cac9a98d-f7a0-4a88-89a8-2721a50964f0
 
 ## Why use it?
 
