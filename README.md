@@ -10,6 +10,10 @@ jev-digest searches the web or reads local documents, then uses TypeSafe's Jev m
 
 [Quick start](#quick-start) | [Example output](#example-output) | [Tools](#tools) | [Early results](#early-results) | [Contribute](#contribute)
 
+[![Watch the jev-digest demo](assets/jev-digest-demo.jpg)](assets/jev-digest-demo.mp4)
+
+**[Watch the 20-second demo](assets/jev-digest-demo.mp4)** (1080p)
+
 ## Why use it?
 
 Research can fill an agent's context with navigation, unrelated sections and repeated information. jev-digest does the first pass across sources so the agent can focus on the passages that matter.
